@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Profile() {
   return (
-    <div>Profile</div>
+    <div>This line is being routed from Profile</div>
   )
 }
