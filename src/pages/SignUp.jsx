@@ -47,7 +47,7 @@ export default function SignUp() {
       formDataCopy.timestamp = serverTimestamp();
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
-      toast.success('Registration was Successful!', {
+      toast.success("Registration was Successful!", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -56,10 +56,10 @@ export default function SignUp() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
       navigate("/");
     } catch (error) {
-      toast.error('Registration was Unsuccessful', {
+      toast.error("Registration was Unsuccessful", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -68,7 +68,7 @@ export default function SignUp() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   }
 
@@ -84,7 +84,7 @@ export default function SignUp() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20 lg:-mt-6">
-         <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className="mb-4">
               <input
                 type="text"
