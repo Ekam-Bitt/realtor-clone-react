@@ -25,7 +25,7 @@ export default function OAuth() {
           timestamp: serverTimestamp(),
         });
       }
-      toast.success("Registration was Successful!", {
+      toast.success("Successful!", {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,

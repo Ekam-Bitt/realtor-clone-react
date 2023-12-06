@@ -1,14 +1,45 @@
-import React, { useState } from "react";
-// import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import OAuth from "../components/OAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
-  // const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   function onChange(e) {
     setEmail(e.target.value);
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email was sent", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      navigate("/Sign-In");
+    } catch (error) {
+      toast.error("Could not send reset password", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   }
 
   return (
@@ -23,7 +54,7 @@ export default function ForgotPassword() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20 lg:-mt-6">
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="mb-4">
               <input
                 type="email"
