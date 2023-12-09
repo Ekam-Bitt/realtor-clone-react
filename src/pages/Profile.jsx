@@ -1,10 +1,9 @@
 import { React, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 
 export default function Profile() {
   const auth = getAuth();
-  const navigate = useNavigate();
   const [formData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,

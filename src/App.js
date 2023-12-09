@@ -8,7 +8,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
+import { inject } from "@vercel/analytics";
 import "react-toastify/dist/ReactToastify.css";
+inject();
 function App() {
   return (
     <>
