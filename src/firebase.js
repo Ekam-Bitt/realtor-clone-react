@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "realtor-clone-ekam",
   storageBucket: "realtor-clone-ekam.appspot.com",
   messagingSenderId: "463746875722",
-  appId: "1:463746875722:web:3ab36a212d91d857f401b3"
+  appId: "1:463746875722:web:3ab36a212d91d857f401b3",
 };
 
 // Initialize Firebase

@@ -11,21 +11,25 @@ The Realtor Clone React project is a web application that allows users to browse
 To get started with the Realtor Clone React project, follow these steps:
 
 1. Clone the repository:
+
    ```
    git clone https://github.com/Ekam-Bitt/realtor-clone-react.git
    ```
 
 2. Navigate to the project directory:
+
    ```
    cd realtor-clone-react
    ```
 
 3. Install the dependencies:
+
    ```
    npm install
    ```
 
 4. Start the development server:
+
    ```
    npm start
    ```
