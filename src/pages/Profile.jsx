@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
+import { RiHome3Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const auth = getAuth();
@@ -12,6 +14,7 @@ export default function Profile() {
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   });
+  const navigate = useNavigate();
   const { name, email } = formData;
   function onChange(e) {
     setFormData((prevState) => ({
@@ -83,6 +86,15 @@ export default function Profile() {
               Sign Out
             </Link>
           </div>
+          <Link></Link>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-xl flex justify-center items-center gap-3 text-white bg-black rounded-xl border-none shadow-lg hover:text-black hover:bg-white transition duration-200 ease-in-out"
+            onClick={() => navigate("/Create-Listing")}
+          >
+            <RiHome3Line className="text-2xl" />
+            Sell or Rent your Home
+          </button>
         </form>
       </section>
     </>

@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
+import CreateListing from "./pages/CreateListing";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import { inject } from "@vercel/analytics";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/Sign-Up" element={<SignUp />}></Route>
           <Route path="/Forgot-Password" element={<ForgotPassword />}></Route>
           <Route path="/Offers" element={<Offers />}></Route>
+          <Route path="/Create-Listing" element={<CreateListing />}></Route>
         </Routes>
       </Router>
       <ToastContainer
