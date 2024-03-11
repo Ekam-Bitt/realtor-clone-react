@@ -9,9 +9,7 @@ import Offers from "./pages/Offers";
 import CreateListing from "./pages/CreateListing";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
-import { inject } from "@vercel/analytics";
 import "react-toastify/dist/ReactToastify.css";
-inject();
 function App() {
   return (
     <>
@@ -26,7 +24,9 @@ function App() {
           <Route path="/Sign-Up" element={<SignUp />}></Route>
           <Route path="/Forgot-Password" element={<ForgotPassword />}></Route>
           <Route path="/Offers" element={<Offers />}></Route>
-          <Route path="/Create-Listing" element={<CreateListing />}></Route>
+          <Route path="/Create-Listing" element={<PrivateRoute />}>
+            <Route path="/Create-Listing" element={<CreateListing />}></Route>
+          </Route>
         </Routes>
       </Router>
       <ToastContainer
