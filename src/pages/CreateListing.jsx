@@ -14,10 +14,10 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router";
 
 export default function CreateListing() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const auth = getAuth();
   const [loading, setLoading] = useState(false);
-  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
+  const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -103,7 +103,7 @@ export default function CreateListing() {
 
       location = data.status === "ZERO_RESULTS" && undefined;
 
-      if (location === undefined || location.includes("undefined")) {
+      if (location === undefined) {
         setLoading(false);
         toast.error("Please enter a correct Address", {
           position: "bottom-center",
@@ -182,6 +182,7 @@ export default function CreateListing() {
       imgUrls,
       geolocation,
       timestamp: serverTimestamp(),
+      userRef: auth.currentUser.uid,
     };
     delete formDataCopy.images;
     delete formDataCopy.latitude;
