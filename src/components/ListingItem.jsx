@@ -4,9 +4,8 @@ import Moment from "react-moment";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-export default function ListingItem({ listing, id }) {
+export default function ListingItem({ listing, id, onDelete, onEdit }) {
   const [hovered, setHovered] = useState(false);
-
   const handleHover = () => {
     if (listing.imgUrls.length > 1) {
       setHovered(true);
@@ -107,12 +106,20 @@ export default function ListingItem({ listing, id }) {
           </div>
         </Link>
         <div className="flex items-center gap-3 absolute bottom-3 right-4">
-          <button>
-            <FaPencil className=" text-lg text-blue-700" />
-          </button>
-          <button>
-            <MdDelete className=" text-2xl text-red-700" />
-          </button>
+          {onDelete && (
+            <FaPencil
+              className=" text-lg text-blue-700"
+              onClick={() =>  onEdit(listing.id)}
+              cursor={"pointer"}
+            />
+          )}
+          {onEdit && (
+            <MdDelete
+              className=" text-2xl text-red-700"
+              onClick={() => onDelete(listing.id)}
+              cursor={"pointer"}
+            />
+          )}
         </div>
       </li>
     </div>
