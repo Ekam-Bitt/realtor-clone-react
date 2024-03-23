@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .border-b-red-600 {
   border-bottom: 3px solid #ff0000;
@@ -8,6 +8,15 @@
 
 .border-b-transparent {
   border-bottom: 3px solid transparent;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  color: #a8dadc;
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: #a8dadc !important;
 }
 
 body {
