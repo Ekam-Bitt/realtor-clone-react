@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 import {
@@ -9,14 +9,22 @@ import {
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function CreateListing() {
   const navigate = useNavigate();
   const auth = getAuth();
   const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState(null);
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [formData, setFormData] = useState({
     type: "rent",
@@ -32,7 +40,7 @@ export default function CreateListing() {
     discountedPrice: 0,
     latitude: 0,
     longitude: 0,
-    images: {},
+    images: [],
   });
   const {
     type,
@@ -50,6 +58,42 @@ export default function CreateListing() {
     longitude,
     images,
   } = formData;
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You can't edit this listing");
+      navigate("/");
+    }
+  }, [auth.currentUser.uid, listing, navigate]);
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchListing() {
+      const docRef = doc(db, "listings", params.listingId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setListing(docSnap.data());
+        setFormData({ ...docSnap.data() });
+        setLoading(false);
+      } else {
+        navigate("/");
+        toast.error("Listing does not exist", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    }
+    fetchListing();
+  }, [navigate, params.listingId]);
+
   function onChange(e) {
     let boolean = null;
     if (e.target.value === "true") {
@@ -185,12 +229,13 @@ export default function CreateListing() {
       userRef: auth.currentUser.uid,
     };
     delete formDataCopy.images;
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
     delete formDataCopy.latitude;
     delete formDataCopy.longitude;
-    !formDataCopy.offer && delete formDataCopy.discountedPrice;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    const docRef = doc(db, "listings", params.listingId);
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
-    toast.success("Listing Created", {
+    toast.success("Listing Updated", {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -200,7 +245,7 @@ export default function CreateListing() {
       progress: undefined,
       theme: "dark",
     });
-    navigate(`/Create-Listing/${formDataCopy.type}/${docRef.id}`);
+    navigate(`/Category/${formDataCopy.type}/${docRef.id}`);
   }
 
   if (loading) {
@@ -208,7 +253,7 @@ export default function CreateListing() {
   }
   return (
     <div className=" max-w-md px-2 mx-auto mb-12">
-      <h1 className="text-3xl text-center my-6 font-bold">Create Listing</h1>
+      <h1 className="text-3xl text-center my-6 font-bold">Edit Listing</h1>
       <form className="flex flex-col gap-4" onSubmit={onSubmit}>
         <div>
           <p className=" text-black font-semibold whitespace-nowrap text-base sm:text-lg">
@@ -512,7 +557,7 @@ export default function CreateListing() {
           type="submit"
           className="w-full px-4 py-2 text-xl text-white bg-black rounded-xl border-none shadow-lg hover:text-black hover:bg-white transition duration-200 ease-in-out"
         >
-          Create Listing
+          Update Listing
         </button>
       </form>
     </div>
