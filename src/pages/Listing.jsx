@@ -102,7 +102,7 @@ export default function Listing() {
       >
         <FaShare className="text-lg text-slate-500" />
       </div>
-      <div className="flex flex-col md:flex-row p-4 gap-4 rounded-lg shadow-lg bg-white">
+      <div className="flex flex-col md:flex-row max-w-7xl mx-auto p-4 gap-4 rounded-lg shadow-lg bg-white">
         <div className="w-full">
           <p className="text-2xl font-bold text-blue-900">
             {listing.name} @ ${" "}
@@ -125,7 +125,7 @@ export default function Listing() {
                 {listing.type === "rent" ? "Rent" : "Sale"}
               </p>
               {listing.offer && (
-                <p className="w-1/3 px-4 py-2 text-sm text-white flex items-center text-center bg-green-700 rounded-xl border-none shadow-lg">
+                <p className="w-1/3 px-4 py-2 text-sm text-white flex items-center justify-center text-center bg-green-700 rounded-xl border-none shadow-lg">
                   ${+listing.regularPrice - +listing.discountedPrice} discount
                 </p>
               )}
