@@ -56,10 +56,10 @@ export default function Slider() {
                   backgroundSize: "cover",
                 }}
               ></div>
-              <p className="absolute top-1 left-0 bg-black text-white font-semibold p-2 rounded-tl-lg border border-gray-300 rounded-br-lg text-lg">
+              <p className="absolute top-1 left-0 w-[215px] bg-black text-white text-center font-semibold p-2 rounded-tl-lg border border-gray-300 rounded-br-lg text-lg">
                 {data.name}
               </p>
-              <p className="absolute bottom-[0px] right-0 bg-red-500 text-white font-semibold p-2 rounded-tl-lg border border-gray-300 rounded-br-lg text-lg">
+              <p className="absolute bottom-[0px] w-[215px] right-0 bg-red-500 text-white text-center font-semibold p-2 rounded-tl-lg border border-gray-300 rounded-br-lg text-lg">
                 ${data.discountedPrice ?? data.regularPrice}
                 {data.type === "rent" && " / month"}
               </p>
